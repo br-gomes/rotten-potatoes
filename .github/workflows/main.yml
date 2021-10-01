@@ -63,5 +63,5 @@ jobs:
         with: 
           images: brunogomesmottta/rotten-potatoes:${{ github.run_number }}
           manifests: |
-            k8s/deployamnet.yaml
+            k8s/deployment.yaml
           
