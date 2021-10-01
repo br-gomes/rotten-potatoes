@@ -53,23 +53,15 @@ jobs:
       - name: Kubernetes set context
         uses: Azure/k8s-set-context@v1.1
         with:
-          # Acceptable values: generic or arc
-          cluster-type: # default is generic
           # Acceptable values: kubeconfig or service-account or service-principal
           method: kubeconfig
           # Kubernetes Config
           kubeconfig: ${{ secrets.K8S_CONFIG }}
-          # If your kubeconfig has multiple contexts, use this field to use a specific context, otherwise the default one would be chosen
-          context: # optional, default is 
-          # Cluster Url
-          k8s-url: # optional, default is 
-          # Service account secret. Run kubectl get serviceaccounts <service-account-name> -o yaml and copy the service-account-secret-name. Copy the ouptut of kubectl get secret <service-account-secret-name> -o yaml
-          k8s-secret: # optional, default is 
-          # Token extracted from the secret of service account (should be base 64 decoded)
-          token: # optional, default is 
-          # Azure resource group name
-          resource-group: # optional, default is 
-          # Azure connected cluster name
-          cluster-name: # optional, default is 
-      
-    
+          
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1.3
+        with: 
+          images: brunogomesmottta/rotten-potatoes:${{ github.run_number }}
+          manifests: |
+            k8s/deployamnet.yaml
+          
